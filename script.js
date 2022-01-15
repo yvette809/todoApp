@@ -11,18 +11,21 @@ const apiURL = 'https://jsonplaceholder.typicode.com/todos'
 
 // fetch todos from data base
 
+// 
 const getTodos = async () => {
     let response = await fetch(apiURL)
     let todos = await response.json()
-    displayTodos(todos)
+    todos.map(todo => {
+        displayTodo(todo)
+    })
+
 }
 
 getTodos()
 
 // show todos in the dom
-function displayTodos(todos) {
-    todos.map(todo => {
-        result.innerHTML += `
+function displayTodo(todo) {
+    result.innerHTML += `
         <li id=${todo.id}>
         <p>${todo.title}</p>
        <i class="fas fa-trash "></i>
@@ -30,7 +33,7 @@ function displayTodos(todos) {
         </li>
         
    `
-    }).join('')
+
 }
 
 
@@ -45,34 +48,48 @@ function showError(input, message) {
 
 }
 
+
 // add todos
 
-function addTodos(textInput) {
+async function addTodos(todo) {
 
-    if (textInput.value === "") {
-        alert('todos cannnot be empty')
-        // showError(textInput.value, 'todos cant be empty')
+    if (todo.value.trim() === "") {
+
+        showError(textInput, 'Text field cannot be empty')
     } else {
         const todo = {
             id: Math.floor(Math.random() * 1000),
             title: textInput.value,
             completed: Boolean
         }
+
+        await fetch(apiURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(todo)
+        })
+            .then(res => res.json())
+            .then(todo => {
+                console.log(todo)
+                displayTodo(todo)
+            })
+
+
     }
 
-    getTodos()
 
-    textInput.value = ""
+    todo.value = ""
 }
 
 
 // event listeners
 
 todoButton.addEventListener('click', e => {
-     e.preventDefault()
-     addTodos(textInput.value)
-   
- 
+    e.preventDefault()
+    addTodos(textInput)
 
 })
 

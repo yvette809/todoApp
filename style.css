@@ -48,8 +48,9 @@ body {
 .form-control small {
   color: #e74c3c;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: -1.5rem;
+  left: 40%;
+  font-size: 1.1rem;
   visibility: hidden;
 }
 
@@ -68,7 +69,7 @@ body {
   position: absolute;
   top: 5px;
   right: 3px;
-  background-color: #e056fd;
+  background-color: #352f5b;
   border: 0;
   border-radius: 50px;
   color: #fff;
@@ -81,10 +82,10 @@ ul.todos {
   list-style-type: none;
   text-align: center;
   width: 100%;
+  margin-top:4rem;
 }
 
 ul.todos li {
-
   position: relative;
   border-radius: 2px;
   background-color: #423a6f;
@@ -97,7 +98,6 @@ ul.todos li i {
   top: 0;
   right: 0;
   cursor: pointer;
- 
 }
 
 ul.todos li i.fa-times {
@@ -105,9 +105,7 @@ ul.todos li i.fa-times {
 }
 
 ul.todos li i.fa-trash {
-    color: #fff;
-    right: 2rem;
-    cursor: pointer;
-
+  color: #fff;
+  right: 2rem;
+  cursor: pointer;
 }
-
