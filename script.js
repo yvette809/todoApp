@@ -98,13 +98,13 @@ function addTodos(title) {
 async function deleteTodo(id) {
 
     let todos = document.querySelectorAll('li')
-    let todosH = Array.from(todos)
-    console.log(todosH)
-   const newT= todosH.find(todo=> todo.id )
-   console.log(newT)
-   newT.remove()
-   
-   }
+    let todosArray = Array.from(todos)
+    console.log(todosArray)
+    const foundTodo = todosArray.find(todo => todo.id)
+    console.log(foundTodo)
+    foundTodo.remove()
+
+}
 
 
 
