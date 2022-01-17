@@ -13,11 +13,17 @@ const apiURL = 'https://jsonplaceholder.typicode.com/todos'
 
 // 
 const getTodos = async () => {
-    let response = await fetch(apiURL)
-    let todos = await response.json()
-    todos.map(todo => {
-        displayTodo(todo)
-    })
+    try {
+        let response = await fetch(apiURL)
+        let todos = await response.json()
+        todos.map(todo => {
+            displayTodo(todo)
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
+   
 
 }
 
@@ -28,12 +34,10 @@ function displayTodo(todo) {
     result.innerHTML += `
         <li id=${todo.id}>
         <p>${todo.title}</p>
-       <i class="fas fa-trash "></i>
+       <i class="fas fa-trash " onclick="deleteTodo(${todo.id})"></i>
         ${todo.completed ? `<i class="far fa-check-circle "></i>` : `<i class="fas fa-times "></i>`}
-        </li>
-        
+        </li>      
    `
-
 }
 
 
@@ -51,7 +55,7 @@ function showError(input, message) {
 
 // add todos
 
-async function addTodos(todo) {
+ function addTodos(todo) {
 
     if (todo.value.trim() === "") {
 
@@ -63,7 +67,7 @@ async function addTodos(todo) {
             completed: Boolean
         }
 
-        await fetch(apiURL, {
+        return fetch(apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,6 +86,21 @@ async function addTodos(todo) {
 
 
     todo.value = ""
+}
+
+
+// delete todo
+
+ async function deleteTodo (todoId){
+
+    const res = await  fetch(`${apiURL}/${todoId}`,{
+        method:"DELETE"
+    })
+    const todo = await res.json()
+
+    console.log('clicked todo', todoId)
+
+
 }
 
 
