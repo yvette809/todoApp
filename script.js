@@ -8,22 +8,24 @@ const formControl = document.getElementById('formControl')
 
 const apiURL = 'https://jsonplaceholder.typicode.com/todos'
 
+let todos = []
 
 // fetch todos from data base
 
 // 
 const getTodos = async () => {
     try {
-        let response = await fetch(apiURL)
-        let todos = await response.json()
+        const response = await fetch(apiURL)
+        const data = await response.json()
+        todos = data
         todos.map(todo => {
             displayTodo(todo)
         })
-        
+
     } catch (error) {
         console.log(error)
     }
-   
+
 
 }
 
@@ -55,60 +57,63 @@ function showError(input, message) {
 
 // add todos
 
- function addTodos(todo) {
+function addTodos(title) {
 
-    if (todo.value.trim() === "") {
+    if (textInput.value.trim() === "") {
 
         showError(textInput, 'Text field cannot be empty')
     } else {
         const todo = {
             id: Math.floor(Math.random() * 1000),
-            title: textInput.value,
-            completed: Boolean
+            title,
+            completed: false
         }
 
         return fetch(apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
+                // 'Accept': 'application/json',
             },
             body: JSON.stringify(todo)
         })
             .then(res => res.json())
-            .then(todo => {
-                console.log(todo)
-                displayTodo(todo)
+            .then(data => {
+                // console.log(data)
+                todos.unshift(data)
+                displayTodo(data)
+                textInput.value = ""
             })
+        getTodos()
 
 
     }
 
 
-    todo.value = ""
 }
 
 
 // delete todo
 
- async function deleteTodo (todoId){
+async function deleteTodo(id) {
 
-    const res = await  fetch(`${apiURL}/${todoId}`,{
-        method:"DELETE"
-    })
-    const todo = await res.json()
+    let todos = document.querySelectorAll('li')
+    let todosH = Array.from(todos)
+    console.log(todosH)
+   const newT= todosH.find(todo=> todo.id )
+   console.log(newT)
+   newT.remove()
+   
+   }
 
-    console.log('clicked todo', todoId)
 
-
-}
 
 
 // event listeners
 
 todoButton.addEventListener('click', e => {
     e.preventDefault()
-    addTodos(textInput)
+    addTodos(textInput.value)
 
 })
 
