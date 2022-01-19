@@ -51,7 +51,10 @@ function showError(input, message) {
     parent.classList.remove('success')
     const small = parent.querySelector('small')
     small.innerText = message
-
+    setTimeout(() => {
+        small.remove()
+        parent.classList.remove('error')
+    }, 3000)
 }
 
 
@@ -96,7 +99,6 @@ function addTodos(title) {
 // delete todo
 
 async function deleteTodo(id) {
-
     let todos = document.querySelectorAll('li')
     let todosArray = Array.from(todos)
     console.log(todosArray)
@@ -105,7 +107,6 @@ async function deleteTodo(id) {
     foundTodo.remove()
 
 }
-
 
 
 
