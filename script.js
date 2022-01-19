@@ -34,13 +34,21 @@ getTodos()
 // show todos in the dom
 function displayTodo(todo) {
     result.innerHTML += `
-        <li id=${todo.id}>
-        <p>${todo.title}</p>
-       <i class="fas fa-trash " onclick="deleteTodo(${todo.id})"></i>
-        ${todo.completed ? `<i class="far fa-check-circle "></i>` : `<i class="fas fa-times "></i>`}
-        </li>      
+         <li id=${todo.id}>
+         <p>${todo.title}</p>
+         <button class="btn-danger" onclick=${todo.completed ? `deleteTodo(${todo.id})` : ""}>X</button>
+         <input type="checkbox" id="myCheck" >
+        </li>   
+        
+       
    `
+
+
 }
+
+//${todo.completed ? `<i class="far fa-check-circle "></i>` : `<i class="fas fa-times "></i>`}
+//    <i class="fas fa-trash " onclick=${todo.completed ? `deleteTodo(${todo.id})` : ""}></i>
+
 
 
 // error message
@@ -109,6 +117,12 @@ async function deleteTodo(id) {
 }
 
 
+//show alert
+
+
+
+
+
 
 // event listeners
 
@@ -118,3 +132,13 @@ todoButton.addEventListener('click', e => {
 
 })
 
+
+// Toggle todo
+
+result.addEventListener('click', e => {
+    if (e.target.tagName === 'INPUT') {
+        e.target.parentElement.classList.toggle('completed')
+
+    }
+
+})

@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #352f5b;
+  background-color: rgb(177, 147, 147);
 }
 
 .container {
@@ -63,9 +63,6 @@ body {
 }
 
 .form-control .btn {
-  /* padding: 0.3rem;
-    border-radius: 5px;
-    font-size: 0.8rem; */
   position: absolute;
   top: 5px;
   right: 3px;
@@ -80,32 +77,45 @@ body {
 
 ul.todos {
   list-style-type: none;
-  text-align: center;
-  width: 100%;
-  margin-top:4rem;
+  text-align: justify;
+  /* width: 80%; */
+  margin-top: 4rem;
+  padding: 2rem;
 }
 
 ul.todos li {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 2px;
-  background-color: #423a6f;
-  color: #fff;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e6e6e66b;
+  box-shadow: 5px 5px 10px #9191916b;
 }
 
-ul.todos li i {
-  color: #2ecc71;
+ul.todos li p {
+  font-size: 1.2rem;
+  margin-left: 1.2rem;
+}
+
+
+ul.todos li.completed {
+  border-right: 10px solid green;
+}
+
+input[type="checkbox"] {
+  background-color: red;
   position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
+  left: 10px;
 }
 
-ul.todos li i.fa-times {
-  color: #e74c3c;
-}
-
-ul.todos li i.fa-trash {
+.btn-danger {
+  background-color: #9b1010;
   color: #fff;
-  right: 2rem;
-  cursor: pointer;
+  font-weight: bolder;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
 }
+
