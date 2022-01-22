@@ -5,6 +5,9 @@ const textInput = document.getElementById('text')
 const todoButton = document.getElementById('btn')
 const result = document.getElementById('result')
 const formControl = document.getElementById('formControl')
+// let alert = document.querySelector('.alert')
+const formContainer = document.querySelector('.form-container')
+
 
 const apiURL = 'https://jsonplaceholder.typicode.com/todos'
 
@@ -35,19 +38,19 @@ getTodos()
 function displayTodo(todo) {
     result.innerHTML += `
          <li id=${todo.id}>
-         <p>${todo.title}</p>
-         <button class="btn-danger" onclick=${todo.completed ? `deleteTodo(${todo.id})` : ""}>X</button>
+       
+         <p>${todo.title.charAt(0).toUpperCase() + todo.title.slice(1)}</p>
+         <button class="delete-btn" onclick=${todo.completed ? `deleteTodo(${todo.id})` : "showAlert('cannot delete todo', 'danger')"}>X</button>
          <input type="checkbox" id="myCheck" >
+        
+       
+        </span>
         </li>   
         
        
    `
 
-
 }
-
-//${todo.completed ? `<i class="far fa-check-circle "></i>` : `<i class="fas fa-times "></i>`}
-//    <i class="fas fa-trash " onclick=${todo.completed ? `deleteTodo(${todo.id})` : ""}></i>
 
 
 
@@ -94,7 +97,10 @@ function addTodos(title) {
                 todos.unshift(data)
                 displayTodo(data)
                 textInput.value = ""
+                showAlert('Todo Added', 'success')
             })
+
+
         getTodos()
 
 
@@ -109,18 +115,33 @@ function addTodos(title) {
 async function deleteTodo(id) {
     let todos = document.querySelectorAll('li')
     let todosArray = Array.from(todos)
-    console.log(todosArray)
     const foundTodo = todosArray.find(todo => todo.id)
-    console.log(foundTodo)
     foundTodo.remove()
+    window.confirm('are you sure?')
+    if (window.confirm) {
+        // alert('Todo deleted')
+        showAlert('Todo deleted!', 'success')
+    }
 
 }
 
 
-//show alert
 
 
+function showAlert(message, className) {
+    const div = document.createElement('div')
+    div.className = className
+    // div.appendChild(document.createTextNode(message))
+    div.innerText = message
+    const container = document.querySelector('.container')
+    container.insertBefore(div, formContainer)
 
+    //disappear in 3 seconds
+    setTimeout(() => {
+        div.remove()
+
+    }, 3000)
+}
 
 
 
