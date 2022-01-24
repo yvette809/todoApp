@@ -9,7 +9,7 @@ const formControl = document.getElementById('formControl')
 const formContainer = document.querySelector('.form-container')
 
 
-const apiURL = 'https://jsonplaceholder.typicode.com/todos'
+const apiURL = 'https://jsonplaceholder.typicode.com/todos/'
 
 let todos = []
 
@@ -21,7 +21,8 @@ const getTodos = async () => {
         const response = await fetch(apiURL)
         const data = await response.json()
         todos = data
-        todos.map(todo => {
+        todos.slice(0, 10).map(todo => {
+
             displayTodo(todo)
         })
 
@@ -37,20 +38,19 @@ getTodos()
 // show todos in the dom
 function displayTodo(todo) {
     result.innerHTML += `
-         <li id=${todo.id}>
-       
+         <li id="todo${todo.id}" completed= ${todo.completed}>
          <p>${todo.title.charAt(0).toUpperCase() + todo.title.slice(1)}</p>
-         <button class="delete-btn" onclick=${todo.completed ? `deleteTodo(${todo.id})` : "showAlert('cannot delete todo', 'danger')"}>X</button>
+         <button class="delete-btn" onclick="deleteTodo(${todo.id})">X</button>
          <input type="checkbox" id="myCheck" >
-        
-       
         </span>
-        </li>   
-        
+        </li>        
        
    `
+   
 
 }
+
+//<button class="delete-btn" onclick=${todo.completed ? `deleteTodo(${todo.id})` : "showAlert('cannot delete todo', 'danger')"}>X</button>
 
 
 
@@ -96,6 +96,7 @@ function addTodos(title) {
                 // console.log(data)
                 todos.unshift(data)
                 displayTodo(data)
+                // getTodos()
                 textInput.value = ""
                 showAlert('Todo Added', 'success')
             })
@@ -112,19 +113,46 @@ function addTodos(title) {
 
 // delete todo
 
+// async function deleteTodo(id) {
+//     let todos = document.querySelectorAll('li')
+//     let todosArray = Array.from(todos)
+//      const foundTodo = todosArray.find(todo => todo.id)
+//      console.log(foundTodo)
+//      
+//     foundTodo.remove()
+//     window.confirm('are you sure?')
+//     if (window.confirm) {
+//         showAlert('Todo deleted!', 'success')
+//     }
+
+// }
+
 async function deleteTodo(id) {
-    let todos = document.querySelectorAll('li')
-    let todosArray = Array.from(todos)
-    const foundTodo = todosArray.find(todo => todo.id)
-    foundTodo.remove()
-    window.confirm('are you sure?')
-    if (window.confirm) {
-        // alert('Todo deleted')
+    // todos.filter(todo=>todo.id!==id)
+
+    let foundTodo = todos.find(todo => todo.id === id)
+    console.log(foundTodo.completed)
+    if (foundTodo.completed) {
+        fetch(apiURL + id, {
+            method: 'DELETE'
+        }).then(res => {
+            console.log(res);
+            if (res.status === 200) {
+                todos = todos.filter(todo => todo.id !== id)
+                console.log(todos);
+                document.querySelector('#todo' + id).remove()
+            }
+        })
         showAlert('Todo deleted!', 'success')
+
+
+    } else {
+        showAlert('cannot delete!, Todo not completed', 'danger')
     }
 
-}
 
+
+}
 
 
 

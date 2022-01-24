@@ -135,7 +135,7 @@ opacity: 1;
   border-radius: 5px;
 }
 
-.alert, .success{
+.danger, .success{
   /* display: none; */
   background-color: #9b1010;
   color: white;
