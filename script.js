@@ -46,8 +46,6 @@ function displayTodo(todo) {
         </li>        
        
    `
-   
-
 }
 
 //<button class="delete-btn" onclick=${todo.completed ? `deleteTodo(${todo.id})` : "showAlert('cannot delete todo', 'danger')"}>X</button>
@@ -87,23 +85,20 @@ function addTodos(title) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Accept': 'application/json',
+
             },
             body: JSON.stringify(todo)
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data)
+
                 todos.unshift(data)
                 displayTodo(data)
-                // getTodos()
                 textInput.value = ""
                 showAlert('Todo Added', 'success')
             })
 
-
         getTodos()
-
 
     }
 
@@ -111,21 +106,6 @@ function addTodos(title) {
 }
 
 
-// delete todo
-
-// async function deleteTodo(id) {
-//     let todos = document.querySelectorAll('li')
-//     let todosArray = Array.from(todos)
-//      const foundTodo = todosArray.find(todo => todo.id)
-//      console.log(foundTodo)
-//      
-//     foundTodo.remove()
-//     window.confirm('are you sure?')
-//     if (window.confirm) {
-//         showAlert('Todo deleted!', 'success')
-//     }
-
-// }
 
 async function deleteTodo(id) {
     // todos.filter(todo=>todo.id!==id)
@@ -141,13 +121,14 @@ async function deleteTodo(id) {
                 todos = todos.filter(todo => todo.id !== id)
                 console.log(todos);
                 document.querySelector('#todo' + id).remove()
+
             }
         })
         showAlert('Todo deleted!', 'success')
 
 
     } else {
-        showAlert('cannot delete!, Todo not completed', 'danger')
+        showAlert('Cannot delete!, Todo not completed', 'danger')
     }
 
 
@@ -191,3 +172,5 @@ result.addEventListener('click', e => {
     }
 
 })
+
+

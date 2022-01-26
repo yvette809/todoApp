@@ -18,9 +18,14 @@ body {
 
 .form-container{
   background-color: #9b1010;
-  padding: 4rem;
+  padding: 2rem;
   border-radius: 10px;
   margin-top: 2rem;
+}
+
+.form-container h1{
+  color: #fff;
+  font-size: 2rem;
 }
 
 .form-control {
@@ -30,11 +35,7 @@ body {
 }
 
 .form-control input {
-  /* border: 2px solid #f0f0f0;
-    border-radius: 4px;
-    padding: 0.4rem;
-    font-size: 0.9rem; */
-
+  
   border-radius: 50px;
   font-size: 16px;
   padding: 15px 30px;
@@ -86,7 +87,7 @@ ul.todos {
   list-style-type: none;
   text-align: justify;
   /* width: 80%; */
-  margin-top: 4rem;
+  margin-top: 2rem;
   padding: 2rem;
 }
 
@@ -111,7 +112,9 @@ ul.todos li p {
 
 
 ul.todos li.completed {
-  border-right: 10px solid green;
+  /* border-right: 2px solid green; */
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 input[type="checkbox"] {
@@ -148,4 +151,21 @@ opacity: 1;
 
 .success{
   background-color: green;
+}
+
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 530px;
+  }
+
+  .form-container{
+    width: 99%;
+    margin-bottom: 0;  
+  }
+  
+  .delete-btn{
+    padding: 0.3rem;
+    margin-left: 1rem;
+  }
 }
